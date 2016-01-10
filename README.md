@@ -29,3 +29,9 @@ dbapi-portal模块中执行命令`mvn tomcat7:run`
 ### 为什么选用log4j2?  
 1. Apache Log4j 2 is an upgrade to Log4j that provides significant improvements over its predecessor, Log4j 1.x, and provides many of the improvements available in Logback while fixing some inherent problems in Logback's architecture. 一句话总结，官方号称log4j2比log4j和logback都牛逼.
 2. 配置简单集中，修改dbapi-assembly中的log4j2.xml即可实现整个工程的日志管理。
+
+
+##生成maven archetype
+mvn archetype:create-from-project
+Then move to that generated directory and call mvn install on the created archetype.
+
