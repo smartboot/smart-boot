@@ -1,4 +1,4 @@
-package me.danbai.dbapi.component.test;
+package net.vinote.smartboot.component.test;
 
 
 import org.junit.runner.RunWith;

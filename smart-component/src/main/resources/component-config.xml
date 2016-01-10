@@ -5,7 +5,7 @@
 	default-autowire="byName">
 
 	<!-- 配置缓存拦截器 -->
-	<bean id="cacheInterceptor" class="me.danbai.schedule.component.cache.CacheInterceptor">
+	<bean id="cacheInterceptor" class="net.vinote.smartboot.component.cache.CacheInterceptor">
 		<property name="cacheClient" ref="cacheClient" />
 	</bean>
 	<bean

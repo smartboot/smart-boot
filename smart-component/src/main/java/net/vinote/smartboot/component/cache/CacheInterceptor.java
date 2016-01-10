@@ -1,4 +1,4 @@
-package me.danbai.schedule.component.cache;
+package net.vinote.smartboot.component.cache;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -16,6 +16,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import net.vinote.smartboot.integration.cache.CacheClient;
+
 
 /**
  * 缓存拦截器,通过配置化拦截设置于接口处的注解

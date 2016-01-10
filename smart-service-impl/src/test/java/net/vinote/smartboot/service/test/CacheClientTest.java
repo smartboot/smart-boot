@@ -1,4 +1,4 @@
-package me.danbai.dbapi.service.test;
+package net.vinote.smartboot.service.test;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

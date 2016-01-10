@@ -21,6 +21,5 @@
 			<groupId>net.vinote.smartboot</groupId>
 			<artifactId>smart-shared</artifactId>
 		</dependency>
-
 	</dependencies>
 </project>

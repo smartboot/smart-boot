@@ -1,4 +1,4 @@
-package me.danbai.schedule.component.cache;
+package net.vinote.smartboot.component.cache;
 
 import java.util.List;
 

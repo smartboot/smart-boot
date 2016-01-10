@@ -1,12 +1,12 @@
-package me.danbai.schedule.component.cache;
+package net.vinote.smartboot.component.cache;
+
+import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import net.vinote.smartboot.integration.cache.CacheClient;
-
-import java.util.List;
 
 /**
  * 缓存组件,某些业务在完成修改类操作后可调用该组件对缓存进行清理

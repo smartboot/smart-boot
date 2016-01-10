@@ -1,4 +1,4 @@
-package me.danbai.dbapi.service.test;
+package net.vinote.smartboot.dal.test;
 
 
 import org.junit.runner.RunWith;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-        locations = "classpath:service-config.xml")
+        locations = "classpath:dal-config.xml")
 @Transactional( "transactionManager")
 @Rollback(false)
 public abstract class AbstractUnitTest {
