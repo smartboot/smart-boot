@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="GBK"?>
+<table xmlns="http://www.vinote.net/schema/table" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.vinote.net/schema/table 
+	platform:/resource/maven-mybatisdalgen-plugin/src/main/resources/dalgen-tables.xsd
+        "
+	sqlname="pf_schedule_info">
+
+	<operation name="selectByCondition" paramType="primitive"
+		multiplicity="many">
+		<extraparams>
+			<param name="query" javatype="me.danbai.schedule.middlegen.dal.query.ScheduleQuery" />
+		</extraparams>
+		<sql><![CDATA[
+			select id,groupName,jobName,title,cron,host,lastTime,deleted,createTime,modifyTime from pf_schedule_info
+      ]]></sql>
+		<sqlmap>
+	  <![CDATA[
+		select id,groupName,jobName,title,cron,host,lastTime,deleted,createTime,modifyTime from pf_schedule_info
+			where deleted='0'
+			<if test="query.id > 0">
+				and id=#{query.id}
+			</if>
+			<if test="query.groupName != null and query.groupName != ''">
+				and groupName=#{query.groupName}
+			</if>
+			<if test="query.jobName != null and query.jobName != ''">
+				and jobName=#{query.jobName}
+			</if>
+			order by modifyTime desc
+			<if test="query.rows > 0">
+			  limit #{query.offset},#{query.rows} 
+			</if>
+      ]]>
+		</sqlmap>
+	</operation>
+	
+	<operation name="selectCountByCondition" paramType="primitive">
+		<extraparams>
+			<param name="query" javatype="me.danbai.schedule.middlegen.dal.query.ScheduleQuery" />
+		</extraparams>
+		<sql><![CDATA[
+			select count(1) from pf_schedule_info
+      ]]></sql>
+		<sqlmap>
+	  <![CDATA[
+		select count(1) from pf_schedule_info
+			where deleted='0'
+			<if test="query.id > 0">
+				and id=#{query.id}
+			</if>
+			<if test="query.groupName != null and query.groupName != ''">
+				and groupName=#{query.groupName}
+			</if>
+			<if test="query.jobName != null and query.jobName != ''">
+				and jobName=#{query.jobName}
+			</if>
+      ]]>
+		</sqlmap>
+	</operation>
+	
+	<operation name="insert" paramType="primitive">
+		<sql><![CDATA[
+		insert into pf_schedule_info(groupName,jobName,title,cron,host,lastTime,deleted,createTime,modifyTime) values(?,?,?,?,?,?,?,?,?);
+      ]]></sql>
+		<sqlmap>
+	  <![CDATA[
+		insert into buy_user_coupon(groupName,jobName,title,cron,host,lastTime,deleted,createTime,modifyTime) 
+			values(#{groupName},#{jobName},#{title},#{cron},#{host},#{lastTime},0,now(),now());
+      ]]>
+		</sqlmap>
+	</operation>
+	
+	<operation name="updateById" paramType="object">
+		<sql><![CDATA[
+		update pf_schedule_info set modifyTime=now;
+      ]]></sql>
+		<sqlmap>
+	  <![CDATA[
+		update pf_schedule_info set modifyTime=now()
+			<if test="title != null">
+			, title=#{title}
+			</if>
+			<if test="cron != null">
+			, cron=#{cron}
+			</if>
+			<if test="host != null">
+			, host=#{host}
+			</if>
+			<if test="lastTime != null">
+			, lastTime=#{lastTime}
+			</if>
+			where id=#{id}
+      ]]>
+		</sqlmap>
+	</operation>
+	<operation name="delete" paramType="primitive">
+		<sql><![CDATA[
+		update pf_schedule_info set modifyTime=now,deleted=1 where id=?;
+      ]]></sql>
+		<sqlmap>
+	  <![CDATA[
+		update pf_schedule_info set modifyTime=now(),deleted=1 where id=#{id};
+      ]]>
+		</sqlmap>
+	</operation>
+</table>
