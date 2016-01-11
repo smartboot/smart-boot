@@ -8,7 +8,7 @@ import net.vinote.smartboot.service.facade.result.ServiceResult;
 /**
  * dbapi Controller抽象类
  * 
- * @author 三刀
+ * @author Seer
  * @version BaseController.java, v 0.1 2015年11月5日 上午11:47:40 Seer Exp.
  */
 @Controller

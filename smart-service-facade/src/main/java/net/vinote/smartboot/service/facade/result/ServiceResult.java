@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 调用接口的响应结果存放类
  *
- * @author 三刀
+ * @author Seer
  * @version v 0.1 2015年11月5日 上午10:59:08 Seer Exp.
  */
 public class ServiceResult<T> implements Serializable {
