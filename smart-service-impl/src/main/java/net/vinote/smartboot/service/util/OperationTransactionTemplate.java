@@ -8,6 +8,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import net.vinote.smartboot.service.facade.result.ServiceResult;
+import net.vinote.smartboot.shared.SmartException;
 
 /**
  * 服务层事务模板
@@ -47,7 +48,7 @@ public class OperationTransactionTemplate {
 			}
 			callback.doAfterOperate();
 			result.setSuccess(true);
-		} catch (DbApiException e) {
+		} catch (SmartException e) {
 			if (e.getLevel() == null) {
 				logger.error("", e);
 			} else if (logger.isEnabled(e.getLevel())) {

@@ -3,7 +3,7 @@ package net.vinote.smartboot.service.util.permission;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
-import net.vinote.smartboot.service.util.DbApiException;
+import net.vinote.smartboot.shared.SmartException;
 
 public class PermissionUtil {
 
@@ -51,7 +51,7 @@ public class PermissionUtil {
 			}
 			return true;
 		default:
-			throw new DbApiException("unsupport relation " + need.getRelation());
+			throw new SmartException("unsupport relation " + need.getRelation());
 		}
 
 	}

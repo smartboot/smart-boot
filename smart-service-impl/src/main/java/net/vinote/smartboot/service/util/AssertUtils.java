@@ -6,6 +6,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.springframework.util.CollectionUtils;
 
+import net.vinote.smartboot.shared.SmartException;
+
 /**
  * 断言工具类
  * 
@@ -33,7 +35,7 @@ public class AssertUtils {
 	 */
 	public static void isNotBlank(String str, String msg) {
 		if (StringUtils.isBlank(str)) {
-			throw new DbApiException(msg);
+			throw new SmartException(msg);
 		}
 	}
 
@@ -46,7 +48,7 @@ public class AssertUtils {
 	 */
 	public static void isNotNull(Object obj, String message) {
 		if (obj == null) {
-			throw new DbApiException(message);
+			throw new SmartException(message);
 		}
 	}
 
@@ -62,7 +64,7 @@ public class AssertUtils {
 	 *            a boolean expression
 	 * @param message
 	 *            the exception message to use if the assertion fails
-	 * @throws DbApiException
+	 * @throws SmartException
 	 *             if expression is {@code false}
 	 */
 	public static void isTrue(boolean flag, String message) {
@@ -71,7 +73,7 @@ public class AssertUtils {
 
 	public static void isTrue(boolean flag, String message, Level level) {
 		if (!flag) {
-			throw new DbApiException(level, message);
+			throw new SmartException(level, message);
 		}
 	}
 
@@ -81,13 +83,13 @@ public class AssertUtils {
 
 	public static void isFalse(boolean flag, String message, Level level) {
 		if (flag) {
-			throw new DbApiException(level, message);
+			throw new SmartException(level, message);
 		}
 	}
 
 	public static <E> void notEmpty(Collection<E> collection, String message) {
 		if (CollectionUtils.isEmpty(collection)) {
-			throw new DbApiException(message);
+			throw new SmartException(message);
 		}
 	}
 }
