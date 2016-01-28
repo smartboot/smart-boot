@@ -43,7 +43,7 @@
 				<version>${sosa.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<!-- schedule自身模块 -->
 			<dependency>
 				<groupId>net.vinote.smartboot</groupId>
@@ -91,7 +91,7 @@
 				<version>${commons.lang.version}</version>
 			</dependency>
 			<!-- require dependency:end -->
-			
+
 			<!-- option dependency:begin -->
 			<!-- 数据库 -->
 			<dependency>
@@ -126,7 +126,7 @@
 				<version>3.0-alpha-1</version>
 				<scope>provided</scope>
 			</dependency>
-			
+
 
 			<!--redis -->
 			<dependency>
@@ -138,8 +138,14 @@
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-redis</artifactId>
 				<version>1.6.0.RELEASE</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
-			
+
 			<!-- option dependency:end -->
 		</dependencies>
 
