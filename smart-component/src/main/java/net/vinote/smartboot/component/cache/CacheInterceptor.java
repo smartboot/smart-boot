@@ -21,7 +21,7 @@ import net.vinote.smartboot.integration.cache.CacheClient;
 /**
  * 缓存拦截器,通过配置化拦截设置于接口处的注解
  * 
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月06日 下午1:46 Seer Exp.
  */
 public class CacheInterceptor implements MethodInterceptor {

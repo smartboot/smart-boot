@@ -2,7 +2,7 @@ package net.vinote.smartboot.service.util.permission;
 
 /**
  * 权限关系模型
- * @author 三刀
+ * @author Seer
  * @version Permission.java, v 0.1 2015年11月4日 下午4:33:25 Seer Exp. 
  */
 public class Permission {

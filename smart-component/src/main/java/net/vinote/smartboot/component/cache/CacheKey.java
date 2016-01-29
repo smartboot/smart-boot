@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * 拼凑缓存Key
  *
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月06日 下午1:46 Seer Exp.
  */
 @Documented

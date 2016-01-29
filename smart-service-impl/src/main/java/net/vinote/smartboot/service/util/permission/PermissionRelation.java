@@ -5,7 +5,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * 权限关系
  * 
- * @author 三刀
+ * @author Seer
  * @version PermissionRelation.java, v 0.1 2015年11月4日 下午4:29:19 Seer Exp.
  */
 public enum PermissionRelation {

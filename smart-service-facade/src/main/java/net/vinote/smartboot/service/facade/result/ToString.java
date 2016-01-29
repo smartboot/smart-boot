@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * @author 三刀
+ * @author Seer
  * @version ToString.java, v 0.1 2015年11月5日 下午3:37:38 Seer Exp. 
  */
 public class ToString {

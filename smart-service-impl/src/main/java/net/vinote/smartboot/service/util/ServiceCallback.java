@@ -2,7 +2,7 @@ package net.vinote.smartboot.service.util;
 
 /**
  * 业务回调
- * @author 三刀
+ * @author Seer
  * @version ServiceCallback.java, v 0.1 2015年11月4日 下午3:19:10 Seer Exp. 
  */
 public abstract class ServiceCallback {

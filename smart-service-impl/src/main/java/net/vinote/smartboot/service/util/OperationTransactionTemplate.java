@@ -13,7 +13,7 @@ import net.vinote.smartboot.shared.SmartException;
 /**
  * 服务层事务模板
  *
- * @author 三刀
+ * @author Seer
  * @version OperationTransactionTemplate.java, v 0.1 2015年11月5日 上午11:21:11 Seer
  *          Exp.
  */

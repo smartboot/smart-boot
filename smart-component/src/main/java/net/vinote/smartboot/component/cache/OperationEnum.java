@@ -3,7 +3,7 @@ package net.vinote.smartboot.component.cache;
 /**
  * 操作枚举
  *
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月06日 下午1:46 Seer Exp.
  */
 public enum OperationEnum {

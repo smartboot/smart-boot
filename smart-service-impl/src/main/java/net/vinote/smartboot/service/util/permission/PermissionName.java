@@ -3,7 +3,7 @@ package net.vinote.smartboot.service.util.permission;
 /**
  * 权限实体类
  * 
- * @author 三刀
+ * @author Seer
  * @version PermissionName.java, v 0.1 2015年11月4日 下午4:26:13 Seer Exp.
  */
 public class PermissionName {

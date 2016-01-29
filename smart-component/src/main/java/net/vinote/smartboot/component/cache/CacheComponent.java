@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 缓存组件
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月07日 下午11:09 Seer Exp.
  */
 public interface CacheComponent {

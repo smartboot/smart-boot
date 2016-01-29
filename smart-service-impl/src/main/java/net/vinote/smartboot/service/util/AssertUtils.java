@@ -11,7 +11,7 @@ import net.vinote.smartboot.shared.SmartException;
 /**
  * 断言工具类
  * 
- * @author 三刀
+ * @author Seer
  * @version AssertUtils.java, v 0.1 2015年11月4日 下午3:22:59 Seer Exp.
  */
 public class AssertUtils {

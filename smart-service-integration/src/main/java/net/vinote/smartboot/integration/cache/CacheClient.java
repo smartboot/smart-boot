@@ -3,7 +3,7 @@ package net.vinote.smartboot.integration.cache;
 /**
  * 缓存服务客户端接口
  * 
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月06日 下午1:19 Seer Exp.
  */
 public interface CacheClient {

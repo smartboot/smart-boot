@@ -15,7 +15,7 @@ import net.vinote.smartboot.integration.cache.CacheClient;
 import net.vinote.sosa.rpc.serial.SerializableBean;
 
 /**
- * @author 三刀
+ * @author Seer
  * @version v0.1 2015年11月06日 下午1:23 Seer Exp.
  */
 public class RedisCacheClientImpl implements CacheClient {
