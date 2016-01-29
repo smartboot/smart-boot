@@ -24,6 +24,7 @@ Web层，仅负责前后端的数据交互，不建议在该bundle中进行复�
 ![系统结构图](1.png)
 ##运行系统
 dbapi-restful模块中运行BootStrap.java
+> 新建工程默认运行时会报错`Could not resolve resource location pattern [classpath:mybatis/mapping/*.xml]`,那是因为工程包含了mybatis的spring配置信息dal-config.xml，而初始状态下还没生成mybatis配置文件，导致加载失败。如果项目本身不对接数据库，可去除dal-config.xml的数据库配置项，或者在完成mybatis的配置后再尝试启动项目。
 
 ##日志系统log4j2
 ### 为什么选用log4j2?  
