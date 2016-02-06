@@ -27,15 +27,7 @@ public class CommonConverter {
 	/** Cglib转换器 */
 	private static final Converter converter = new CglibConverter();
 
-	/**
-	 * 单个对象 source --> target
-	 * 
-	 * @param <T>
-	 * @param <E>
-	 * @param source
-	 * @param target
-	 */
-	public static <T, E> void convert(T source, E target) {
+	public static <T, E> void convert(T source, E target,Converter converter){
 		// 参数校验
 		if (source == null || target == null) {
 			return;
@@ -52,6 +44,40 @@ public class CommonConverter {
 		}
 
 		beanCopier.copy(source, target, converter);
+	
+	}
+	/**
+	 * 单个对象 source --> target
+	 * 
+	 * @param <T>
+	 * @param <E>
+	 * @param source
+	 * @param target
+	 */
+	public static <T, E> void convert(T source, E target) {
+		convert(source, target, converter);
+	}
+
+	public static <T, E extends Object> void convertList(Class<E> targetClass, Collection<T> sources,
+		Collection<E> targets, Converter converter) {
+
+
+		// 参数校验
+		if (targetClass == null || CollectionUtils.isEmpty(sources) || targets == null) {
+			return;
+		}
+
+		try {
+			for (T source : sources) {
+				E target = (E) targetClass.newInstance();
+
+				convert(source, target,converter);
+				targets.add(target);
+			}
+		} catch (Exception e) {
+			LOGGER.error("转换对象异常", e);
+		}
+	
 	}
 
 	/**
@@ -63,24 +89,8 @@ public class CommonConverter {
 	 * @param sources
 	 * @param targets
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <T, E extends Object> void convertList(Class targetClass, Collection<T> sources,
+	public static <T, E extends Object> void convertList(Class<E> targetClass, Collection<T> sources,
 		Collection<E> targets) {
-
-		// 参数校验
-		if (targetClass == null || CollectionUtils.isEmpty(sources) || targets == null) {
-			return;
-		}
-
-		try {
-			for (T source : sources) {
-				E target = (E) targetClass.newInstance();
-
-				convert(source, target);
-				targets.add(target);
-			}
-		} catch (Exception e) {
-			LOGGER.error("转换对象异常", e);
-		}
+		convertList(targetClass, sources, targets, converter);
 	}
 }
