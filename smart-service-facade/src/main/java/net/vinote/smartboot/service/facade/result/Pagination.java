@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Pagination<T> extends ToString {
 	/** 数据总量 */
-	private int total;
+	private long total;
 	/** 当前页码 */
 	private int page;
 	/** 单页数据量 */
@@ -17,7 +17,7 @@ public class Pagination<T> extends ToString {
 	 *
 	 * @return property value of total
 	 */
-	public final int getTotal() {
+	public final long getTotal() {
 		return total;
 	}
 
@@ -27,7 +27,7 @@ public class Pagination<T> extends ToString {
 	 * @param total
 	 *            value to be assigned to property total
 	 */
-	public final void setTotal(int total) {
+	public final void setTotal(long total) {
 		this.total = total;
 	}
 

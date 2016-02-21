@@ -10,5 +10,7 @@
 	<bean name="operateTemplate"
 		class="net.vinote.smartboot.service.util.OperationTransactionTemplate" />
 
+	<import resource="classpath*:service-api-handler.xml" />
+	<import resource="classpath*:service-rpc.xml" />
 	<import resource="classpath*:component-config.xml" />
 </beans>
