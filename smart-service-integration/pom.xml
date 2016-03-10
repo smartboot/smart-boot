@@ -10,12 +10,8 @@
 	<description>用于对接外部系统服务</description>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.vinote.smartboot</groupId>

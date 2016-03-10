@@ -1,16 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>net.vinote.smartboot</groupId>
-		<artifactId>smart-boot</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+	<groupId>net.vinote.smartboot</groupId>
+	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>smart-service-facade</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>central_oschina</id>
+					<url>http://120.26.204.209:9091/content/repositories/central_oschina</url>
+					<releases>
+					</releases>
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>central_oschina</id>
+					<url>http://120.26.204.209:9091/content/repositories/central_oschina</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>http://120.26.204.209:9091/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
 </project>

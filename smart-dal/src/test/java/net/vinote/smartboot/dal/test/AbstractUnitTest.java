@@ -1,15 +1,24 @@
 package net.vinote.smartboot.dal.test;
 
-
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        locations = "classpath:dal-config.xml")
-@TransactionConfiguration(transactionManager= "transactionManager",defaultRollback=false)
+@Rollback(false)
+@Transactional(
+	transactionManager = "transactionManager")
+@SpringApplicationConfiguration(
+	locations = { "classpath*:dal-config.xml" }, classes = AbstractUnitTest.class)
+@IntegrationTest
+@SpringBootApplication
 public abstract class AbstractUnitTest {
-
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(AbstractUnitTest.class, args);
+	}
 }

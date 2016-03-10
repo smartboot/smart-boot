@@ -1,12 +1,10 @@
 package net.vinote.smartboot.restful;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 @ImportResource(
 	locations = { "classpath*:service-config.xml","classpath*:mvc-config.xml" })
 public class BootStrap {

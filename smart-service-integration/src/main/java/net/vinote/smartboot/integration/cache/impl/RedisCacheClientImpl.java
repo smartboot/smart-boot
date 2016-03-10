@@ -2,6 +2,7 @@ package net.vinote.smartboot.integration.cache.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -20,7 +21,8 @@ import net.vinote.sosa.rpc.serial.SerializableBean;
  */
 public class RedisCacheClientImpl implements CacheClient {
 	private static final Logger LOGGER = LogManager.getLogger(RedisCacheClientImpl.class);
-	private RedisTemplate<String, Object> redisTemplate;
+	@Autowired
+	private RedisTemplate<Object, Object> redisTemplate;
 	private String name;
 
 	@Override
@@ -36,8 +38,8 @@ public class RedisCacheClientImpl implements CacheClient {
 					return 1L;
 				}
 			});
-			if (LOGGER.isTraceEnabled()) {
-				LOGGER.trace("cache data key:" + key + ", data:" + object + ",expire :" + exprie);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("cache data key:" + key + ", data:" + object + ",expire :" + exprie);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -58,8 +60,8 @@ public class RedisCacheClientImpl implements CacheClient {
 					return flag;
 				}
 			});
-			if (LOGGER.isTraceEnabled()) {
-				LOGGER.trace(flag ? "key has ready exists,key:" + key
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug(flag ? "key has ready exists,key:" + key
 					: "cache data key:" + key + ", data:" + object + ",expire :" + exprie);
 			}
 		} catch (Exception e) {
@@ -81,8 +83,8 @@ public class RedisCacheClientImpl implements CacheClient {
 					return 1L;
 				}
 			});
-			if (LOGGER.isTraceEnabled()) {
-				LOGGER.trace("cache data key:" + key + ", data:" + str + ",expire :" + exprie);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("cache data key:" + key + ", data:" + str + ",expire :" + exprie);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -103,8 +105,8 @@ public class RedisCacheClientImpl implements CacheClient {
 
 				}
 			});
-			if (LOGGER.isTraceEnabled()) {
-				LOGGER.trace("get cache data, key:" + (name + "." + key) + ", data:" + object);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("get cache data, key:" + (name + "." + key) + ", data:" + object);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -127,8 +129,8 @@ public class RedisCacheClientImpl implements CacheClient {
 				}
 
 			});
-			if (LOGGER.isTraceEnabled()) {
-				LOGGER.trace("get cache data, key:" + (name + "." + key) + ", data:" + object);
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("get cache data, key:" + (name + "." + key) + ", data:" + object);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -188,8 +190,8 @@ public class RedisCacheClientImpl implements CacheClient {
 
 	@Override
 	public Long remove(final String key) {
-		if (LOGGER.isTraceEnabled()) {
-			LOGGER.trace("remove cache data, key:" + key);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("remove cache data, key:" + key);
 		}
 		try {
 			return redisTemplate.execute(new RedisCallback<Long>() {
@@ -205,8 +207,8 @@ public class RedisCacheClientImpl implements CacheClient {
 
 	@Override
 	public Long incr(String key) {
-		if (LOGGER.isTraceEnabled()) {
-			LOGGER.trace("Increment value of key, key:" + key);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Increment value of key, key:" + key);
 		}
 		try {
 			return redisTemplate.execute(new RedisCallback<Long>() {
@@ -222,8 +224,8 @@ public class RedisCacheClientImpl implements CacheClient {
 
 	@Override
 	public Long decr(String key) {
-		if (LOGGER.isTraceEnabled()) {
-			LOGGER.trace("decr value of key, key:" + key);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("decr value of key, key:" + key);
 		}
 		try {
 			return redisTemplate.execute(new RedisCallback<Long>() {
@@ -235,14 +237,6 @@ public class RedisCacheClientImpl implements CacheClient {
 			LOGGER.catching(e);
 		}
 		return null;
-	}
-
-	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-		this.redisTemplate = redisTemplate;
-	}
-
-	public RedisTemplate<String, Object> getRedisTemplate() {
-		return redisTemplate;
 	}
 
 	public void setName(String name) {

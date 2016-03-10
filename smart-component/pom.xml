@@ -17,9 +17,12 @@
 			<artifactId>smart-dal</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>net.vinote.sosa</groupId>
-			<artifactId>smart-sosa-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 	</dependencies>
 </project>

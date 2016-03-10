@@ -9,11 +9,10 @@ package net.vinote.smartboot.component.cache;
 public enum PrefixEnum {
 
 	/** 用户权限 */
-	USER_PERMISSION("user", "permission"),
+	TENANT_INFO("tenant", "info"),
 
-	/** 根据ID缓存的活动信息 */
-	ACTIVITY_INFO_BY_ID("activity_info", "id");
-	;
+	/** 订单轨迹 */
+	ORDER_TRACE("order", "trace");
 	/** 缓存前缀所属域 */
 	private String domain;
 

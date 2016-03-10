@@ -16,11 +16,5 @@
 			<groupId>net.vinote.smartboot</groupId>
 			<artifactId>smart-component</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>net.vinote.sosa</groupId>
-			<artifactId>smart-sosa-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 </project>

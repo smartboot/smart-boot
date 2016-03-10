@@ -4,19 +4,21 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import net.vinote.smartboot.integration.cache.CacheClient;
-
 
 /**
  * 缓存拦截器,通过配置化拦截设置于接口处的注解
@@ -24,7 +26,9 @@ import net.vinote.smartboot.integration.cache.CacheClient;
  * @author Seer
  * @version v0.1 2015年11月06日 下午1:46 Seer Exp.
  */
-public class CacheInterceptor implements MethodInterceptor {
+//@Aspect
+//@Component
+public class CacheInterceptor {
 
 	/** key间隔符 */
 	public static final String KEY_SEPERATOR = "_";
@@ -37,26 +41,33 @@ public class CacheInterceptor implements MethodInterceptor {
 	/**
 	 * 缓存管理器
 	 */
+	@Autowired
 	private CacheClient cacheClient;
+
+	@Pointcut("@annotation(CacheEnable)")
+	public void pointcut() {
+		System.err.println("aa");
+	}
 
 	/**
 	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
 	 */
-	@Override
-	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
+	@Around("pointcut()")
+	public Object invoke(ProceedingJoinPoint pjp) throws Throwable {
 		// 获取方法上的注解
-		Method method = methodInvocation.getMethod();
+		MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
+		Method method = methodSignature.getMethod();
 		Cached cachedAnn = method.getAnnotation(Cached.class);
 		if (cachedAnn == null) {
-			return methodInvocation.proceed();
+			return pjp.proceed();
 		}
 
 		String key = null;
 		try {
-			key = getCacheKey(methodInvocation, cachedAnn);
+			key = getCacheKey(pjp, cachedAnn);
 		} catch (Exception ex) {
 			LOGGER.warn("组装缓存Key异常", ex);
-			return methodInvocation.proceed();
+			return pjp.proceed();
 		}
 
 		if (LOGGER.isDebugEnabled()) {
@@ -72,7 +83,7 @@ public class CacheInterceptor implements MethodInterceptor {
 					+ key + "],结果影响记录数[" + effectNums + "]");
 			}
 
-			return methodInvocation.proceed();
+			return pjp.proceed();
 		}
 
 		// 读取
@@ -89,7 +100,7 @@ public class CacheInterceptor implements MethodInterceptor {
 			LOGGER.info("缓存miss,method[" + method.getDeclaringClass().getName() + "." + method.getName() + "],key["
 				+ key + "]");
 		}
-		value = methodInvocation.proceed();
+		value = pjp.proceed();
 		if (value != null) {
 			writeCache(key, value, cachedAnn.expire());
 		}
@@ -99,13 +110,13 @@ public class CacheInterceptor implements MethodInterceptor {
 	/**
 	 * 组装cache key
 	 *
-	 * @param methodInvocation
+	 * @param methodSignature
 	 * @param cachedAnn
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private String getCacheKey(MethodInvocation methodInvocation, Cached cachedAnn) {
-		Method method = methodInvocation.getMethod();
+	private String getCacheKey(ProceedingJoinPoint pjp, Cached cachedAnn) {
+		Method method = ((MethodSignature) pjp.getSignature()).getMethod();
 
 		StringBuilder keyBuffer = new StringBuilder(cachedAnn.prefix().getPrefix());
 
@@ -113,7 +124,7 @@ public class CacheInterceptor implements MethodInterceptor {
 			keyBuffer.append(KEY_SEPERATOR).append(cachedAnn.staticKey());
 		}
 
-		Object[] args = methodInvocation.getArguments();
+		Object[] args = pjp.getArgs();
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		Annotation[][] paramAnns = method.getParameterAnnotations();
 		if (paramAnns != null && paramAnns.length > 0) {
@@ -220,11 +231,11 @@ public class CacheInterceptor implements MethodInterceptor {
 	/**
 	 * Setter method for property <tt>cacheClient</tt>.
 	 *
-	 * @param cacheClient
-	 *            value to be assigned to property cacheClient
+	 * @param cacheClient value to be assigned to property cacheClient
 	 */
-	public void setCacheClient(CacheClient cacheClient) {
+	public final void setCacheClient(CacheClient cacheClient) {
 		this.cacheClient = cacheClient;
 	}
-
+	
+	
 }
