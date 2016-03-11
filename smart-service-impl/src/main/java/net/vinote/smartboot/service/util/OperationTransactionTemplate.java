@@ -2,7 +2,7 @@ package net.vinote.smartboot.service.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -18,7 +18,6 @@ import net.vinote.smartboot.shared.SmartException;
  *          Exp.
  */
 public class OperationTransactionTemplate {
-	@Autowired
 	private TransactionTemplate transactionTemplate;
 
 	private Logger logger = LogManager.getLogger(OperationTransactionTemplate.class);
@@ -63,4 +62,8 @@ public class OperationTransactionTemplate {
 			result.setMessage("数据异常");
 		}
 	}
+	
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
+    }
 }

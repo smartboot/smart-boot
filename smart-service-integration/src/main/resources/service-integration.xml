@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd"
-       default-autowire="byName">
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
 
-    <bean id="cacheClient" class="net.vinote.smartboot.integration.cache.impl.RedisCacheClientImpl">
-        <property name="name" value="${redis.cacheName}"/>
-    </bean>
-
-<!-- RMI服务 -->
-	<!-- <bean name="rmiClient" class="net.vinote.sosa.core.rmi.RmiClient"
-		destroy-method="destory" lazy-init="false" init-method="init" />
-	<bean id="cartService" class="net.vinote.sosa.core.rmi.RmiClientFactoryBean">
-		<property name="rmiClient" ref="rmiClient" />
-		<property name="remoteInterface"
-			value="me.danbai.trade.service.cart.facade.CartService" />
-		<property name="url" value="${trade.url}" />
-		<property name="timeout" value="5000" />
-	</bean> -->
+	<beans profile="redis">
+		<bean id="cacheClient"
+			class="net.vinote.smartboot.integration.cache.impl.RedisCacheClientImpl">
+			<property name="name" value="${redis.cacheName}" />
+		</bean>
+	</beans>
+	<!-- RMI服务 -->
+	<!-- <bean name="rmiClient" class="net.vinote.sosa.core.rmi.RmiClient" destroy-method="destory" 
+		lazy-init="false" init-method="init" /> <bean id="cartService" class="net.vinote.sosa.core.rmi.RmiClientFactoryBean"> 
+		<property name="rmiClient" ref="rmiClient" /> <property name="remoteInterface" 
+		value="me.danbai.trade.service.cart.facade.CartService" /> <property name="url" 
+		value="${trade.url}" /> <property name="timeout" value="5000" /> </bean> -->
 </beans>
