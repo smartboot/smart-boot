@@ -7,8 +7,9 @@ import net.vinote.smartboot.service.api.RestApiHandler;
 
 /**
  * 示例Handler
+ * 
  * @author Seer
- * @version DemoHandler.java, v 0.1 2016年2月10日 下午3:19:07 Seer Exp. 
+ * @version DemoHandler.java, v 0.1 2016年2月10日 下午3:19:07 Seer Exp.
  */
 public class DemoHandler implements RestApiHandler {
 
@@ -20,7 +21,7 @@ public class DemoHandler implements RestApiHandler {
 	@Override
 	public boolean needTransaction(ApiAuthBean authBean, Map<String, String> params) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

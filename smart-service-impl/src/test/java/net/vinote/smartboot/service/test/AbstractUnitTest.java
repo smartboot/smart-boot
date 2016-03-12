@@ -1,6 +1,5 @@
 package net.vinote.smartboot.service.test;
 
-
 import org.junit.runner.RunWith;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringApplicationConfiguration(
 	locations = { "classpath*:service-config.xml" }, classes = AbstractUnitTest.class)
 @IntegrationTest
-@SpringBootApplication
+@SpringBootApplication(
+	scanBasePackages = { "net.vinote.smartboot" })
 public abstract class AbstractUnitTest {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(AbstractUnitTest.class, args);

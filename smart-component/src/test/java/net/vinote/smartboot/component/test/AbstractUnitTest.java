@@ -16,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringApplicationConfiguration(
 	locations = { "classpath*:component-config.xml" }, classes = AbstractUnitTest.class)
 @IntegrationTest
-@SpringBootApplication
+@SpringBootApplication(
+	scanBasePackages = { "net.vinote.smartboot" })
 public abstract class AbstractUnitTest {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(AbstractUnitTest.class, args);

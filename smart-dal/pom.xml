@@ -9,6 +9,15 @@
 	<artifactId>smart-dal</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>net.vinote.smartboot</groupId>
 			<artifactId>smart-assembly</artifactId>
 		</dependency>
@@ -25,18 +34,10 @@
 			<artifactId>mybatis-spring</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>net.vinote.sosa</groupId>
-			<artifactId>smart-sosa-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
 	</dependencies>
 
 	<!-- maven-mybatisdalgen-plugin 配置 -->
@@ -44,8 +45,8 @@
 		<middlegen.destination>${basedir}/src/main</middlegen.destination>
 		<middlegen.source>${middlegen.destination}/resources/META-INF</middlegen.source>
 		<middlegen.config.file>${middlegen.source}/tables-config.xml</middlegen.config.file>
-		<middlegen.package>me.danbai.schedule.middlegen.dal</middlegen.package>
-		<middlegen.package.dir>me/danbai/schedule/middlegen/dal</middlegen.package.dir>
+		<middlegen.package>net.vinote.smartboot.dal.middlegen</middlegen.package>
+		<middlegen.package.dir>net/vinote/smartboot/dal/middlegen</middlegen.package.dir>
 		<middlegen.templates>file://${middlegen.source}/templates</middlegen.templates>
 	</properties>
 
@@ -62,9 +63,9 @@
 						<mergedir>${middlegen.source}/templates/mergedir</mergedir>
 						<middlegenPackage>${middlegen.package}</middlegenPackage>
 						<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
-						<jdbcUrl>jdbc:mysql://localhost:3306/schedule</jdbcUrl>
+						<jdbcUrl>jdbc:mysql://devsql.genshuimai.com:3306/trade</jdbcUrl>
 						<jdbcUser>root</jdbcUser>
-						<jdbcPassword>root</jdbcPassword>
+						<jdbcPassword>danbai!QAZ@WSX</jdbcPassword>
 					</config>
 
 					<fileProducers>
@@ -83,21 +84,17 @@
 						</fileProducer>
 
 						<fileProducer>
+							<!-- 生成dal层组件bean -->
+							<destination>${middlegen.destination}/java/${middlegen.package.dir}</destination>
+							<template>${middlegen.templates}/middlegen-dal-bean.vm</template>
+							<filename>MiddlegenDalBean.java</filename>
+						</fileProducer>
+
+						<fileProducer>
 							<!-- 生成sqlMap-mapping -->
 							<destination>${middlegen.destination}/resources</destination>
 							<template>${middlegen.templates}/table-sqlmap-mapping.vm</template>
 							<filename>mybatis/mapping/{0}-sqlmap-mapping.xml</filename>
-						</fileProducer>
-
-						<!-- <fileProducer> 生成sqlMap <destination>${middlegen.destination}/resources</destination> 
-							<template>${middlegen.templates}/sqlmap.vm</template> <filename>mybatis/sqlMapConfig.xml</filename> 
-							</fileProducer> -->
-
-						<fileProducer>
-							<!-- 生成DAO beans的Spring配置文件 -->
-							<destination>${middlegen.destination}/resources</destination>
-							<template>${middlegen.templates}/beans-dal-dao.vm</template>
-							<filename>middlegen-dal-config.xml</filename>
 						</fileProducer>
 					</fileProducers>
 				</configuration>

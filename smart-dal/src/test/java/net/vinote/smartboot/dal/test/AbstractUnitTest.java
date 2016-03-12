@@ -14,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(
 	transactionManager = "transactionManager")
 @SpringApplicationConfiguration(
-	locations = { "classpath*:dal-config.xml" }, classes = AbstractUnitTest.class)
+	classes = AbstractUnitTest.class)
 @IntegrationTest
-@SpringBootApplication
+@SpringBootApplication(
+	scanBasePackages = { "net.vinote.smartboot" })
 public abstract class AbstractUnitTest {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(AbstractUnitTest.class, args);

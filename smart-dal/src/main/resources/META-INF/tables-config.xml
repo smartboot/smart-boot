@@ -6,7 +6,6 @@
 	<typemap from="java.lang.Byte" to="java.lang.Integer" />
 	<typemap from="java.lang.Short" to="java.lang.Integer" />
 
-	<include table="tables/pf_schedule_info.xml" />
 	<!-- 表名前缀 -->
-	<tableprefix prefix="pf" />
+	<!-- <tableprefix prefix="tr" /> -->
 </tables>
