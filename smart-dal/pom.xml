@@ -63,9 +63,9 @@
 						<mergedir>${middlegen.source}/templates/mergedir</mergedir>
 						<middlegenPackage>${middlegen.package}</middlegenPackage>
 						<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
-						<jdbcUrl>jdbc:mysql://devsql.genshuimai.com:3306/trade</jdbcUrl>
+						<jdbcUrl>jdbc:mysql://localhost:3306/demo</jdbcUrl>
 						<jdbcUser>root</jdbcUser>
-						<jdbcPassword>danbai!QAZ@WSX</jdbcPassword>
+						<jdbcPassword>root</jdbcPassword>
 					</config>
 
 					<fileProducers>
