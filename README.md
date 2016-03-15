@@ -70,10 +70,10 @@ dbapi-restful模块中运行BootStrap.java
 
 ##生成maven archetype
 1.mvn clean
-清除eclipse工程编译产生的文件
-2.mvn archetype:create-from-project
-3.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources
-4. 进入/smart-boot-archetype/src/main/resources/archetype-resources目录清除隐藏文件
+清除eclipse工程编译产生的文件  
+2.mvn archetype:create-from-project  
+3.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources  
+4.进入/smart-boot-archetype/src/main/resources/archetype-resources目录清除隐藏文件
 
 >
 	find . -name \.settings -exec rm -f {} \;
@@ -82,8 +82,8 @@ dbapi-restful模块中运行BootStrap.java
 	find . -name \.classpath -exec rm -r {} \;
 >
 	
-5. 覆盖/smart-dal/src/main/resources目录下的文件至/smart-boot-archetype/src/main/resources/archetype-resources/smart-dal/src/main/resources
-6. 编辑log4j2.xml,pom.xml
+5.覆盖/smart-dal/src/main/resources目录下的文件至/smart-boot-archetype/src/main/resources/archetype-resources/smart-dal/src/main/resources  
+6.编辑log4j2.xml,pom.xml  
 
 已生成现成的archetype，参见[smart-boot-archetype](https://git.oschina.net/smartdms/smart-boot-archetype)
 
