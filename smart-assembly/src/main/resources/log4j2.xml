@@ -13,41 +13,37 @@
 		</Console>
 
 		<RollingFile name="DefaultRollingFile" fileName="${logPath}/smartboot-default.log"
-			filePattern="${logPath}/dbapi-default-%d{MM-dd-yyyy}-%i.log">
+			filePattern="${logPath}/smartboot-default-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout
 				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %M(%F:%L) - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>
 
 		<RollingFile name="ComponentRollingFile" fileName="${logPath}/smartboot-component.log"
-			filePattern="${logPath}/dbapi-component-%d{MM-dd-yyyy}-%i.log">
+			filePattern="${logPath}/smartboot-component-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout
 				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %M(%F:%L) - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>
 
 		<RollingFile name="IntegrationRollingFile" fileName="${logPath}/smartboot-integration.log"
-			filePattern="${logPath}/dbapi-component-%d{MM-dd-yyyy}-%i.log">
+			filePattern="${logPath}/smartboot-component-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout
 				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %M(%F:%L) - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>
 
 		<RollingFile name="ServiceRollingFile" fileName="${logPath}/smartboot-service.log"
-			filePattern="${logPath}/dbapi-service-%d{MM-dd-yyyy}-%i.log">
+			filePattern="${logPath}/smartboot-service-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout
 				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %M(%F:%L) - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>

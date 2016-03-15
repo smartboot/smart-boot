@@ -33,26 +33,31 @@ dbapi-restful模块中运行BootStrap.java
 - 部署：
 	eclipse，tomcat
 - 管控：
-	统一上下文，动态路由，监控日志，地址池，故障	隔离，精细化管控，jvm监控。。。
+	统一上下文，动态路由，监控日志，地址池，故障隔离，精细化管控，jvm监控。。。
 
-##发布服务
+##发布RPC服务
 
-	<bean name="userInfoServiceImpl" class="net.vinote.smartweb.service.impl.UserInfoServiceImpl"/>
-
-	<bean id="userInfoService" class="net.vinote.sosa.rmi.RmiServerFactoryBean"
-		init-method="publishService">
-		<property name="interfaceName"
-			value="net.vinote.smartweb.service.facade.UserInfoService"/>
-		<property name="interfaceImpl" ref="userInfoServiceImpl" />
+	<!-- RMI Service -->
+	<bean name="rmiServer" class="net.vinote.sosa.core.rmi.RmiServer" init-method="init" destroy-method="destory" lazy-init="false">
+		<property name="properties">
+			<props>
+				<prop key="port">${rmiPort}</prop>
+			</props>
+		</property>
+	</bean>
+	<bean name="demoServiceImpl" class="net.vinote.smartboot.service.demo.impl.DemoServiceImpl" />
+	<bean id="demoService" class="net.vinote.sosa.core.rmi.RmiServerFactoryBean" init-method="publishService">
+		<property name="interfaceName" value="net.vinote.smartboot.service.demo.facade.DemoService" />
+		<property name="interfaceImpl" ref="demoServiceImpl" />
 		<property name="rmiServer" ref="rmiServer" />
 	</bean>
 
-##引用外部服务
-	<bean id="userService" class="net.vinote.sosa.rmi.RmiClientFactoryBean">
+##引用RPC服务
+	<!-- RMI服务 -->
+	<bean name="rmiClient" class="net.vinote.sosa.core.rmi.RmiClient" destroy-method="destory" lazy-init="false" init-method="init" />
+	<bean id="demoService" class="net.vinote.sosa.core.rmi.RmiClientFactoryBean">
 		<property name="rmiClient" ref="rmiClient" />
-		<property name="remoteInterface"
-			value="net.vinote.smartweb.service.facade.UserInfoService" />
-		<property name="url" value="${smartUrl}" />
+		<property name="remoteInterface" value="net.vinote.smartboot.service.order.facade.DemoService" />
 		<property name="timeout" value="5000" />
 	</bean>
 
@@ -65,9 +70,20 @@ dbapi-restful模块中运行BootStrap.java
 
 ##生成maven archetype
 1.mvn clean
-清楚工程编译产生的文件
+清除eclipse工程编译产生的文件
 2.mvn archetype:create-from-project
-Then move to that generated directory and call mvn install on the created archetype.
+3.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources
+4. 进入/smart-boot-archetype/src/main/resources/archetype-resources目录清除隐藏文件
+
+>
+	find . -name \.settings -exec rm -f {} \;
+	find . -name \.externalToolBuilders -exec rm -f {} \;
+	find . -name \.project -exec rm -r {} \;
+	find . -name \.classpath -exec rm -r {} \;
+>
+	
+5. 覆盖/smart-dal/src/main/resources目录下的文件至/smart-boot-archetype/src/main/resources/archetype-resources/smart-dal/src/main/resources
+6. 编辑log4j2.xml,pom.xml
 
 已生成现成的archetype，参见[smart-boot-archetype](https://git.oschina.net/smartdms/smart-boot-archetype)
 
