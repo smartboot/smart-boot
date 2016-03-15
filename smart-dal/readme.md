@@ -24,24 +24,22 @@ MyBatis的优异特性同时暴露出一个问题，那就是实际开发中需�
 ###pom.xml
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-		
 		....
-
 		<!-- maven-mybatisdalgen-plugin  配置 -->
 		<properties>
 			<middlegen.destination>${basedir}/src/main</middlegen.destination>
 			<middlegen.source>${middlegen.destination}/resources/META-INF</middlegen.source>
 			<middlegen.config.file>${middlegen.source}/tables-config.xml</middlegen.config.file>
-			<middlegen.package>net.vinote.smartweb.dal</middlegen.package>
-			<middlegen.package.dir>net/vinote/smartweb/dal</middlegen.package.dir>
-			<middlegen.templates>${middlegen.source}/templates</middlegen.templates>
+			<middlegen.package>net.vinote.smartboot.dal.middlegen</middlegen.package>
+			<middlegen.package.dir>net/vinote/smartboot/dal/middlegen</middlegen.package.dir>
+			<middlegen.templates>file://${middlegen.source}/templates</middlegen.templates>
 		</properties>
 		<build>
 			<plugins>
 				<plugin>
 					<groupId>net.vinote.maven.plugin.mydalgen</groupId>
-					<artifactId>mydalgen-maven-plugin</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
+					<artifactId>maven-mydalgen-plugin</artifactId>
+					<version>0.0.1</version>
 					<configuration>
 						<config>
 							<configFile>${middlegen.config.file}</configFile>
@@ -49,7 +47,7 @@ MyBatis的优异特性同时暴露出一个问题，那就是实际开发中需�
 							<mergedir>${middlegen.source}/templates/mergedir</mergedir>
 							<middlegenPackage>${middlegen.package}</middlegenPackage>
 							<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
-							<jdbcUrl>jdbc:mysql://localhost:3306/test</jdbcUrl>
+							<jdbcUrl>jdbc:mysql://localhost:3306/demo</jdbcUrl>
 							<jdbcUser>root</jdbcUser>
 							<jdbcPassword>root</jdbcPassword>
 						</config>
@@ -70,24 +68,17 @@ MyBatis的优异特性同时暴露出一个问题，那就是实际开发中需�
 							</fileProducer>
 	
 							<fileProducer>
+								<!-- 生成dal层组件bean -->
+								<destination>${middlegen.destination}/java/${middlegen.package.dir}</destination>
+								<template>${middlegen.templates}/middlegen-dal-bean.vm</template>
+								<filename>MiddlegenDalBean.java</filename>
+							</fileProducer>
+	
+							<fileProducer>
 								<!-- 生成sqlMap-mapping -->
 								<destination>${middlegen.destination}/resources</destination>
 								<template>${middlegen.templates}/table-sqlmap-mapping.vm</template>
 								<filename>mybatis/mapping/{0}-sqlmap-mapping.xml</filename>
-							</fileProducer>
-	
-							<fileProducer>
-								<!-- 生成sqlMap -->
-								<destination>${middlegen.destination}/resources</destination>
-								<template>${middlegen.templates}/sqlmap.vm</template>
-								<filename>mybatis/sqlMapConfig.xml</filename>
-							</fileProducer>
-	
-							<fileProducer>
-								<!-- 生成DAO beans的Spring配置文件 -->
-								<destination>${middlegen.destination}/resources</destination>
-								<template>${middlegen.templates}/beans-dal-dao.vm</template>
-								<filename>dal-config.xml</filename>
 							</fileProducer>
 						</fileProducers>
 					</configuration>
