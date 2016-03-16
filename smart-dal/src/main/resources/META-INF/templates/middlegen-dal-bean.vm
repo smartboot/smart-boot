@@ -1,4 +1,4 @@
-package net.vinote.smartboot.dal.middlegen;
+package ${plugin.package};
 
 import javax.sql.DataSource;
 
