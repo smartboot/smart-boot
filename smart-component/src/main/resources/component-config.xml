@@ -7,7 +7,7 @@
 	<import resource="classpath*:dal-config.xml" />
 	<!-- 配置缓存拦截器 -->
 	<beans profile="redis">
-		<bean id="cacheInterceptor" class="net.vinote.smartboot.component.cache.CacheInterceptor">
+		 <bean id="cacheInterceptor" class="net.vinote.smartboot.component.cache.CacheInterceptor">
 			<property name="cacheClient" ref="cacheClient" />
 		</bean>
 		<bean

@@ -128,6 +128,7 @@
 					<id>central_oschina</id>
 					<url>http://120.26.204.209:9091/content/repositories/central_oschina</url>
 					<releases>
+						<enabled>true</enabled>
 					</releases>
 				</repository>
 				<repository>

@@ -8,11 +8,8 @@ package net.vinote.smartboot.component.cache;
  */
 public enum PrefixEnum {
 
-	/** 用户权限 */
-	TENANT_INFO("tenant", "info"),
-
-	/** 订单轨迹 */
-	ORDER_TRACE("order", "trace");
+	/** 租户权限 */
+	TENANT_INFO("tenant", "info");
 	/** 缓存前缀所属域 */
 	private String domain;
 

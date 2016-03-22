@@ -4,19 +4,16 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import net.vinote.smartboot.integration.cache.CacheClient;
 
@@ -24,11 +21,9 @@ import net.vinote.smartboot.integration.cache.CacheClient;
  * 缓存拦截器,通过配置化拦截设置于接口处的注解
  * 
  * @author Seer
- * @version v0.1 2015年11月06日 下午1:46 Seer Exp.
+ * @version CacheInterceptor.java, v 0.1 2016年3月22日 上午10:33:37 Seer Exp. 
  */
-//@Aspect
-//@Component
-public class CacheInterceptor {
+public class CacheInterceptor implements MethodInterceptor {
 
 	/** key间隔符 */
 	public static final String KEY_SEPERATOR = "_";
@@ -41,33 +36,26 @@ public class CacheInterceptor {
 	/**
 	 * 缓存管理器
 	 */
-	@Autowired
 	private CacheClient cacheClient;
-
-	@Pointcut("@annotation(CacheEnable)")
-	public void pointcut() {
-		System.err.println("aa");
-	}
 
 	/**
 	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
 	 */
-	@Around("pointcut()")
-	public Object invoke(ProceedingJoinPoint pjp) throws Throwable {
+	@Override
+	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
 		// 获取方法上的注解
-		MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
-		Method method = methodSignature.getMethod();
+		Method method = methodInvocation.getMethod();
 		Cached cachedAnn = method.getAnnotation(Cached.class);
 		if (cachedAnn == null) {
-			return pjp.proceed();
+			return methodInvocation.proceed();
 		}
 
 		String key = null;
 		try {
-			key = getCacheKey(pjp, cachedAnn);
+			key = getCacheKey(methodInvocation, cachedAnn);
 		} catch (Exception ex) {
 			LOGGER.warn("组装缓存Key异常", ex);
-			return pjp.proceed();
+			return methodInvocation.proceed();
 		}
 
 		if (LOGGER.isDebugEnabled()) {
@@ -83,7 +71,7 @@ public class CacheInterceptor {
 					+ key + "],结果影响记录数[" + effectNums + "]");
 			}
 
-			return pjp.proceed();
+			return methodInvocation.proceed();
 		}
 
 		// 读取
@@ -100,7 +88,7 @@ public class CacheInterceptor {
 			LOGGER.info("缓存miss,method[" + method.getDeclaringClass().getName() + "." + method.getName() + "],key["
 				+ key + "]");
 		}
-		value = pjp.proceed();
+		value = methodInvocation.proceed();
 		if (value != null) {
 			writeCache(key, value, cachedAnn.expire());
 		}
@@ -110,13 +98,13 @@ public class CacheInterceptor {
 	/**
 	 * 组装cache key
 	 *
-	 * @param methodSignature
+	 * @param methodInvocation
 	 * @param cachedAnn
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private String getCacheKey(ProceedingJoinPoint pjp, Cached cachedAnn) {
-		Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+	private String getCacheKey(MethodInvocation methodInvocation, Cached cachedAnn) {
+		Method method = methodInvocation.getMethod();
 
 		StringBuilder keyBuffer = new StringBuilder(cachedAnn.prefix().getPrefix());
 
@@ -124,7 +112,7 @@ public class CacheInterceptor {
 			keyBuffer.append(KEY_SEPERATOR).append(cachedAnn.staticKey());
 		}
 
-		Object[] args = pjp.getArgs();
+		Object[] args = methodInvocation.getArguments();
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		Annotation[][] paramAnns = method.getParameterAnnotations();
 		if (paramAnns != null && paramAnns.length > 0) {
@@ -231,11 +219,11 @@ public class CacheInterceptor {
 	/**
 	 * Setter method for property <tt>cacheClient</tt>.
 	 *
-	 * @param cacheClient value to be assigned to property cacheClient
+	 * @param cacheClient
+	 *            value to be assigned to property cacheClient
 	 */
-	public final void setCacheClient(CacheClient cacheClient) {
+	public void setCacheClient(CacheClient cacheClient) {
 		this.cacheClient = cacheClient;
 	}
-	
-	
+
 }
