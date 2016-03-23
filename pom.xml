@@ -166,33 +166,6 @@
 				</pluginRepository>
 			</pluginRepositories>
 		</profile>
-		<profile>
-			<id>prod</id>
-			<activation>
-				<property>
-					<name>env</name>
-					<value>prod</value>
-				</property>
-			</activation>
-			<repositories>
-				<repository>
-					<id>central_oschina</id>
-					<url>http://10.117.25.98:8081/nexus/content/repositories/central_oschina</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<id>central_oschina</id>
-					<url>http://10.117.25.98:8081/nexus/content/repositories/central_oschina</url>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
-		</profile>
 	</profiles>
 
 	<repositories>

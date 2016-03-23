@@ -76,8 +76,8 @@ dbapi-restful模块中运行BootStrap.java
 4.进入/smart-boot-archetype/src/main/resources/archetype-resources目录清除隐藏文件
 
 >
-	find . -name \.settings -exec rm -f {} \;
-	find . -name \.externalToolBuilders -exec rm -f {} \;
+	find . -name \.settings -exec rm -r {} \;
+	find . -name \.externalToolBuilders -exec rm -r {} \;
 	find . -name \.project -exec rm -r {} \;
 	find . -name \.classpath -exec rm -r {} \;
 >
