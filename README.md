@@ -35,6 +35,12 @@ dbapi-restful模块中运行BootStrap.java
 - 管控：
 	统一上下文，动态路由，监控日志，地址池，故障隔离，精细化管控，jvm监控。。。
 
+##smart-boot依赖
+1. Mysql 默认对接mysql数据库，可根据实际项目需要重新进行配置
+2. Redis 默认使用redis提供缓存服务，可根据实际项目需要重新进行配置
+3. [smart-sosa](https://git.oschina.net/smartdms/smart-sosa) 提供底层RPC服务
+4. [maven-mybatisdalgen-plugin](https://git.oschina.net/smartdms/maven-mybatisdalgen-plugin) 数据层采用了mybatis框架，通过该maven-mybatisdalgen-plugin插件可以方便的生成DAL层的代码以及配置文件。
+
 ##发布RPC服务
 
 	<!-- RMI Service -->
@@ -98,4 +104,4 @@ Edit By [Seer](http://zhengjunweimail.blog.163.com/)
 E-mail:zhengjunweimail@163.com  
 QQ:504166636
 
-Update Date: 2016-03-15
+Update Date: 2016-03-23
