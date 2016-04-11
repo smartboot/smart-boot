@@ -21,7 +21,7 @@ public class DemoHandler implements RestApiHandler {
 	@Override
 	public boolean needTransaction(ApiAuthBean authBean, Map<String, String> params) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 }
