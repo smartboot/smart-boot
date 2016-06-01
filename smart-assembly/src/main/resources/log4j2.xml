@@ -47,6 +47,15 @@
 				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>
+		
+		<RollingFile name="SosaRollingFile" fileName="${logPath}/smartboot-sosa.log"
+			filePattern="${logPath}/smartboot-sosa-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %M(%F:%L) - %msg%xEx%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+		</RollingFile>
 	</Appenders>
 
 	<Loggers>
@@ -55,7 +64,29 @@
 			<appender-ref ref="Console" />
 			<!-- <appender-ref ref="DefaultRollingFile" /> -->
 		</Root>
-		
+		<!-- smart-sosa -->
+		<Logger name="net.vinote.sosa" level="info" additivity="false">
+			<appender-ref ref="SosaRollingFile" />
+			<appender-ref ref="DefaultRollingFile" />
+		</Logger>
+		<!-- smart-component -->
+		<Logger name="net.vinote.smartboot.component" level="info" additivity="false">
+			<appender-ref ref="ComponentRollingFile" />
+			<appender-ref ref="DefaultRollingFile" />
+		</Logger>
+
+		<!-- smart-service-integration -->
+		<Logger name="net.vinote.smartboot.integration" level="info"
+			additivity="false">
+			<appender-ref ref="IntegrationRollingFile" />
+			<appender-ref ref="DefaultRollingFile" />
+		</Logger>
+
+		<!-- smart-service-impl -->
+		<Logger name="net.vinote.smartboot.service" level="info" additivity="false">
+			<appender-ref ref="ServiceRollingFile" />
+			<appender-ref ref="DefaultRollingFile" />
+		</Logger>
 	</Loggers>
 
 </Configuration>
