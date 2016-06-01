@@ -3,6 +3,7 @@ package net.vinote.smartboot.integration.cache.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -23,6 +24,8 @@ public class RedisCacheClientImpl implements CacheClient {
 	private static final Logger LOGGER = LogManager.getLogger(RedisCacheClientImpl.class);
 	@Autowired
 	private RedisTemplate<Object, Object> redisTemplate;
+	
+	@Value("${redis.cacheName}")
 	private String name;
 
 	@Override
