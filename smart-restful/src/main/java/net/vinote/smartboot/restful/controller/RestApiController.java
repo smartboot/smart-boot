@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.servlet.ModelAndView;
 
 import net.vinote.smartboot.restful.BaseController;
 import net.vinote.smartboot.service.api.ApiAuthBean;
@@ -41,8 +40,9 @@ public class RestApiController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(
-		value = "/{srvname}", method = { RequestMethod.POST, RequestMethod.GET })
-	public JSONObject api(@PathVariable("srvname") String srvname, HttpServletRequest request) {
+		value = "/{srvname}", method = { RequestMethod.POST, RequestMethod.GET },
+		produces = { "application/json; charset=UTF-8" })
+	public ModelAndView api(@PathVariable("srvname") String srvname, HttpServletRequest request) {
 		ApiAuthBean authBean = new ApiAuthBean();
 		authBean.setApiVersion(request.getHeader("ver"));
 		authBean.setSrvname(srvname);
@@ -58,8 +58,9 @@ public class RestApiController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(
-		value = "/{srvname}/{actname}", method = { RequestMethod.POST, RequestMethod.GET })
-	public JSONObject apiAct(@PathVariable("srvname") String srvname, @PathVariable("actname") String actName,
+		value = "/{srvname}/{actname}", method = { RequestMethod.POST, RequestMethod.GET },
+		produces = { "application/json; charset=UTF-8" })
+	public ModelAndView apiAct(@PathVariable("srvname") String srvname, @PathVariable("actname") String actName,
 		HttpServletRequest request) {
 		ApiAuthBean authBean = new ApiAuthBean();
 		authBean.setApiVersion(request.getHeader("ver"));
@@ -68,7 +69,7 @@ public class RestApiController extends BaseController {
 		return executeAndReturnJSON(request, authBean);
 	}
 
-	private JSONObject executeAndReturnJSON(HttpServletRequest request, ApiAuthBean authBean) {
+	private ModelAndView executeAndReturnJSON(HttpServletRequest request, ApiAuthBean authBean) {
 		Enumeration<String> names = request.getParameterNames();
 		Map<String, String> requestMap = new HashMap<String, String>();
 		while (names.hasMoreElements()) {
@@ -76,14 +77,14 @@ public class RestApiController extends BaseController {
 			requestMap.put(key, request.getParameter(key));
 		}
 		RestApiResult<Object> result = restApiService.execute(authBean, requestMap);
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("code", result.getCode());
-		jsonObject.put("version", result.getVersion());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("code", result.getCode());
+		mv.addObject("version", result.getVersion());
 		if (result.getCode() == ApiCodeEnum.SUCCESS.getCode()) {
-			jsonObject.put("data", result.getData());
+			mv.addObject("data", result.getData());
 		} else {
-			jsonObject.put("message", result.getMessage());
+			mv.addObject("message", result.getMessage());
 		}
-		return jsonObject;
+		return mv;
 	}
 }

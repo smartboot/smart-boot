@@ -26,6 +26,20 @@ Web层，仅负责前后端的数据交互，不建议在该bundle中进行复�
 ##运行系统
 dbapi-restful模块中运行BootStrap.java
 
+1. 如果工程运行依赖数据库，请在application-dev.properties中设置要数据库配置后再运行
+
+2. 如果工程并不需要数据库,需要屏蔽smart-dal，需要对smart-component中的pom.xml文件进行修改，找到
+
+	<dependency>
+			<groupId>net.vinote.smartboot</groupId>
+			<artifactId>smart-dal</artifactId>
+	</dependency>
+	修改为
+	<dependency>
+			<groupId>net.vinote.smartboot</groupId>
+			<artifactId>smart-assembly</artifactId>
+	</dependency>
+
 
 ##smart-boot特点
 - 研发：

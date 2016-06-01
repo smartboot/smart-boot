@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
@@ -20,6 +21,7 @@ import net.vinote.sosa.rpc.serial.SerializableBean;
  * @author Seer
  * @version v0.1 2015年11月06日 下午1:23 Seer Exp.
  */
+@Component("cacheClient")
 public class RedisCacheClientImpl implements CacheClient {
 	private static final Logger LOGGER = LogManager.getLogger(RedisCacheClientImpl.class);
 	@Autowired
