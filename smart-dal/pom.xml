@@ -55,7 +55,7 @@
 			<plugin>
 				<groupId>net.vinote.maven.plugin.mydalgen</groupId>
 				<artifactId>maven-mydalgen-plugin</artifactId>
-				<version>0.0.1</version>
+				<version>20160505</version>
 				<configuration>
 					<config>
 						<configFile>${middlegen.config.file}</configFile>
