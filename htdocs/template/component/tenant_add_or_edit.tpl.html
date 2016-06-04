@@ -1,0 +1,33 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">{{isEdit?'编辑':'新增'}}租户信息</h4>
+      		</div>
+	      	<div class="modal-body">
+		        <form>
+		        	<div class="form-group" ng-show='isEdit'>
+					    <label for="banner">租户Code:</label>
+					    <span>{{infoDetail.code}}</span>
+					</div>
+					<div class="form-group" ng-show='!isEdit'>
+						<label for="code">租户Code</label>
+						<input type="text" class="form-control" id="code" ng-model='infoDetail.code' placeholder="租户Code">
+					</div>
+					<div class="form-group">
+						<label for="name">租户名称</label>
+						<input type="text" class="form-control" id="name" ng-model='infoDetail.name' placeholder="资讯标题">
+					</div>
+					<div class="form-group">
+						<label for="intr">简介</label>
+						<input type="text" class="form-control" id="intr" ng-model='infoDetail.intr' placeholder="资讯简介">
+					</div>
+				</form>
+	      	</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click='submit()'>保存</button>
+			</div>
+	    </div>
+  	</div>
+</div>

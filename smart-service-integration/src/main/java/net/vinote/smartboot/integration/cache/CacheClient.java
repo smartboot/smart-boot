@@ -1,5 +1,7 @@
 package net.vinote.smartboot.integration.cache;
 
+import java.util.List;
+
 /**
  * 缓存服务客户端接口
  * 
@@ -16,17 +18,19 @@ public interface CacheClient {
 	public void putObject(String key, Object object, long expire);
 
 	public void set(final String key, final String str, final long exprie);
-	
+
 	public boolean setNX(final String key, final String str, final long exprie);
+
 	/**
 	 * 获取缓存中存储的自定义对象
 	 * 
 	 * @param key
 	 */
 	public <T> T getObject(String key);
-	
+
 	/**
 	 * 获取缓存中的字符串
+	 * 
 	 * @param key
 	 * @return
 	 */
@@ -46,4 +50,20 @@ public interface CacheClient {
 	public Long incr(String key);
 
 	public Long decr(String key);
+
+	/**
+	 * 键名匹配
+	 * 
+	 * @param pattern
+	 * @return
+	 */
+	public List<String> keys(String pattern);
+
+	/**
+	 * 是否存在该Key
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public boolean exists(String key);
 }

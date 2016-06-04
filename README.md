@@ -91,19 +91,9 @@ dbapi-restful模块中运行BootStrap.java
 ##生成maven archetype
 1.mvn clean
 清除eclipse工程编译产生的文件  
-2.mvn archetype:create-from-project  
-3.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources  
-4.进入/smart-boot-archetype/src/main/resources/archetype-resources目录清除隐藏文件
-
->
-	find . -name \.settings -exec rm -r {} \;
-	find . -name \.externalToolBuilders -exec rm -r {} \;
-	find . -name \.project -exec rm -r {} \;
-	find . -name \.classpath -exec rm -r {} \;
->
-	
-5.覆盖/smart-dal/src/main/resources目录下的文件至/smart-boot-archetype/src/main/resources/archetype-resources/smart-dal/src/main/resources  
-6.编辑log4j2.xml,pom.xml  
+2.mvn archetype:create-from-project
+3.进入目录/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources执行clean.sh，结束后删除该文件
+4.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources  
 
 已生成现成的archetype，参见[smart-boot-archetype](https://git.oschina.net/smartdms/smart-boot-archetype)
 
@@ -119,3 +109,6 @@ E-mail:zhengjunweimail@163.com
 QQ:504166636
 
 Update Date: 2016-03-23
+
+##捐赠
+![微信捐赠](wx.png)

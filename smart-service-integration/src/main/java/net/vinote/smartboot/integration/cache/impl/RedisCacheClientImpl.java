@@ -1,33 +1,35 @@
 package net.vinote.smartboot.integration.cache.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtobufIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import net.vinote.smartboot.integration.cache.CacheClient;
+import net.vinote.smartboot.shared.SmartException;
 import net.vinote.sosa.rpc.serial.SerializableBean;
 
 /**
  * @author Seer
  * @version v0.1 2015年11月06日 下午1:23 Seer Exp.
  */
-@Component("cacheClient")
 public class RedisCacheClientImpl implements CacheClient {
 	private static final Logger LOGGER = LogManager.getLogger(RedisCacheClientImpl.class);
 	@Autowired
 	private RedisTemplate<Object, Object> redisTemplate;
-	
-	@Value("${redis.cacheName}")
 	private String name;
 
 	@Override
@@ -44,7 +46,7 @@ public class RedisCacheClientImpl implements CacheClient {
 				}
 			});
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("cache data key:" + key + ", data:" + object + ",expire :" + exprie);
+				LOGGER.debug("cache data key:" + name + "." + key + ", data:" + object + ",expire :" + exprie);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -97,7 +99,7 @@ public class RedisCacheClientImpl implements CacheClient {
 	}
 
 	@Override
-	public <T> T getObject(final String key) {
+	public <T> T getObject(String key) {
 		T object = null;
 		try {
 			object = redisTemplate.execute(new RedisCallback<T>() {
@@ -111,7 +113,7 @@ public class RedisCacheClientImpl implements CacheClient {
 				}
 			});
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("get cache data, key:" + (name + "." + key) + ", data:" + object);
+				LOGGER.debug("get cache data, key:" + name + "." + key + ", data:" + object);
 			}
 		} catch (Exception e) {
 			LOGGER.catching(e);
@@ -246,6 +248,49 @@ public class RedisCacheClientImpl implements CacheClient {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public List<String> keys(String pattern) {
+		List<String> object = null;
+		try {
+			object = redisTemplate.execute(new RedisCallback<List<String>>() {
+				public List<String> doInRedis(RedisConnection connection) throws DataAccessException {
+					Set<byte[]> value = connection.keys(getKeyBytes(pattern));
+					if (CollectionUtils.isEmpty(value)) {
+						return null;
+					}
+					List<String> keyList = new ArrayList<>(value.size());
+					for (byte[] b : value) {
+						keyList.add(StringUtils.substringAfter(new String(b), name + "."));
+					}
+					return keyList;
+
+				}
+
+			});
+		} catch (Exception e) {
+			LOGGER.catching(e);
+		}
+
+		return object;
+	}
+
+	@Override
+	public boolean exists(String key) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("decr value of key, key:" + key);
+		}
+		try {
+			return redisTemplate.execute(new RedisCallback<Boolean>() {
+				public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+					return connection.exists(getKeyBytes(key));
+				}
+			});
+		} catch (Exception e) {
+			LOGGER.catching(e);
+			throw new SmartException(e);
+		}
 	}
 
 }

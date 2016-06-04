@@ -31,7 +31,7 @@
 				<version>${sosa.version}</version>
 			</dependency>
 
-			<!-- smart自身模块 -->
+			<!-- smartboot自身模块 -->
 			<dependency>
 				<groupId>net.vinote.smartboot</groupId>
 				<artifactId>smart-assembly</artifactId>

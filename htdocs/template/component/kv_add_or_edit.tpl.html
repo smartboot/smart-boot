@@ -1,0 +1,39 @@
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" aria-label="Close" ng-click="$hide()"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">{{infoDetail.id?'编辑':'新增'}}服务号资讯</h4>
+      		</div>
+	      	<div class="modal-body">
+		        <form>
+		        	<div class="form-group" ng-show='infoDetail.id'>
+					    <label for="banner">ID:</label>
+					    <span>{{infoDetail.id}}</span>
+					</div>
+					<div class="form-group">
+						<label for="banner">租户</label>
+						<button type="button" class="btn btn-default" placeholder='选择租户' ng-model="tenant" data-html="1" data-toggle="true" bs-options="tenant.value as tenant.label for tenant in tenants" bs-select>
+							  Action <span class="caret"></span>
+							</button>
+					</div>
+					<div class="form-group">
+						<label for="key">键名(Key)</label>
+						<input type="text" class="form-control" id="key" ng-model='infoDetail.key' placeholder="请输入键名">
+					</div>
+					<div class="form-group">
+						<label for="value">键值(Value)</label>
+						<input type="text" class="form-control" id="value" ng-model='infoDetail.value' placeholder="请输入Value值">
+					</div>
+					<div class="form-group">
+						<label for="remark">备注</label>
+						<input type="text" class="form-control" id="remark" ng-model='infoDetail.remark' placeholder="备注信息">
+					</div>
+				</form>
+	      	</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click='submit()'>保存</button>
+			</div>
+	    </div>
+  	</div>
+</div>

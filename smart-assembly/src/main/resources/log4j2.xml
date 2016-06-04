@@ -69,20 +69,20 @@
 			<appender-ref ref="SosaRollingFile" />
 			<appender-ref ref="DefaultRollingFile" />
 		</Logger>
-		<!-- smart-component -->
+		<!-- smartboot-component -->
 		<Logger name="net.vinote.smartboot.component" level="info" additivity="false">
 			<appender-ref ref="ComponentRollingFile" />
 			<appender-ref ref="DefaultRollingFile" />
 		</Logger>
 
-		<!-- smart-service-integration -->
+		<!-- smartboot-service-integration -->
 		<Logger name="net.vinote.smartboot.integration" level="info"
 			additivity="false">
 			<appender-ref ref="IntegrationRollingFile" />
 			<appender-ref ref="DefaultRollingFile" />
 		</Logger>
 
-		<!-- smart-service-impl -->
+		<!-- smartboot-service-impl -->
 		<Logger name="net.vinote.smartboot.service" level="info" additivity="false">
 			<appender-ref ref="ServiceRollingFile" />
 			<appender-ref ref="DefaultRollingFile" />
