@@ -7,6 +7,7 @@ find . -name \.classpath -exec rm -r {} \;
 
 rm -rf ${curDir}/smart-dal/src/main/resources
 cp -R ${curDir}/../../../../../../../smart-dal/src/main/resources/ ${curDir}/smart-dal/src/main/resources
+cp -R ${curDir}/../../../../../../../htdocs/ ${curDir}/htdocs
 
 #Mac下的sed命令差异
 sed -i "" "s/net\.vinote\.smartboot/\$\{groupId\}/g" `grep  "net.vinote.smartboot" -rl .|grep pom.xml`
