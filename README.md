@@ -90,9 +90,12 @@ dbapi-restful模块中运行BootStrap.java
 
 ##生成maven archetype
 1.mvn clean
-清除eclipse工程编译产生的文件  
+清除eclipse工程编译产生的文件
+  
 2.mvn archetype:create-from-project
+
 3.进入目录/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources执行clean.sh，结束后删除该文件
+
 4.拷贝/smart-boot/target/generated-sources/archetype/src/main/resources/archetype-resources至/smart-boot-archetype/src/main/resources/archetype-resources  
 
 已生成现成的archetype，参见[smart-boot-archetype](https://git.oschina.net/smartdms/smart-boot-archetype)

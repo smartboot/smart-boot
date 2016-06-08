@@ -22,6 +22,7 @@ import net.vinote.smartboot.service.util.ServiceCallback;
 import net.vinote.smartboot.service.util.permission.Permission;
 import net.vinote.smartboot.service.util.permission.PermissionName;
 import net.vinote.smartboot.service.util.permission.PermissionRelation;
+import net.vinote.sosa.core.json.JsonUtil;
 
 /**
  * API服务实现类
@@ -97,7 +98,7 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 							if (LOGGER.isDebugEnabled()) {
 								LOGGER.debug(execResult);
 							}
-							result.setData(execResult);
+							result.setData(JsonUtil.getJsonObject(execResult));
 						}
 					});
 					AssertUtils.isTrue(result.isSuccess(), result.getMessage());
@@ -106,7 +107,7 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug(execResult);
 					}
-					result.setData(execResult);
+					result.setData(JsonUtil.getJsonObject(execResult));
 				}
 
 			}

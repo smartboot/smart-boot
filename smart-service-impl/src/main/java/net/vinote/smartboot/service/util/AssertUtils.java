@@ -34,8 +34,12 @@ public class AssertUtils {
 	 * @since 2.0
 	 */
 	public static void isNotBlank(String str, String msg) {
+		isNotBlank(str, msg, null);
+	}
+
+	public static void isNotBlank(String str, String msg, Level level) {
 		if (StringUtils.isBlank(str)) {
-			throw new SmartException(msg);
+			throw new SmartException(level, msg);
 		}
 	}
 
@@ -47,8 +51,12 @@ public class AssertUtils {
 	 *            异常信息
 	 */
 	public static void isNotNull(Object obj, String message) {
+		isNotNull(obj, message, null);
+	}
+
+	public static void isNotNull(Object obj, String message, Level level) {
 		if (obj == null) {
-			throw new SmartException(message);
+			throw new SmartException(level, message);
 		}
 	}
 

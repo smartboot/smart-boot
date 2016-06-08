@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<sosa.version>20160422</sosa.version>
+		<sosa.version>20160608</sosa.version>
 		<cglib.version>3.2.0</cglib.version>
 		<commons.lang.version>2.6</commons.lang.version>
 		<commons.dbcp>1.4</commons.dbcp>
