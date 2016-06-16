@@ -3,32 +3,19 @@
   <head>
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>键值对管理</title>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css" href="./css/base.css">
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="http://cdn.bootcss.com/angular.js/1.5.5/angular.js"></script>
-<script src="http://cdn.bootcss.com/angular-strap/2.3.8/angular-strap.js"></script>
-<script src="http://cdn.bootcss.com/angular-strap/2.3.8/angular-strap.tpl.js"></script> 
-<script src="http://cdn.bootcss.com/angular.js/1.5.5/angular-animate.js"></script>
-<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/angular-motion/0.4.4/angular-motion.css">
-<script src="./js/component/component.min.js"></script>
-<script src="./js/component/app.min.js"></script>
-<script src="./js/kv.js"></script>
-
-
+    <title>示例</title>
+	<script src="//cdn.bootcss.com/require.js/2.2.0/require.min.js" ></script>
+	<script type="text/javascript">
+	requirejs(['./js/config'], function () {
+	    requirejs(['./demo.min'],function(){
+	    	angular.bootstrap ( document , [ 'demoModule' ] ) ;
+	    });
+	});
+	</script>
 </head>
-  <body ng-app="KVModule" ng-controller="KVCtrl">
+  <body ng-controller="demoCtrl">
   	<div>
 		<nice-navbar/>
 	</div>

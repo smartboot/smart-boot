@@ -1,9 +1,9 @@
 (function() {
-	angular.module('KVModule', ['niceComponent', 'app'])
-		.controller('KVCtrl', ['$scope', '$http', '$pagination', '$url', '$sce', '$alert','$modal', function($scope, $http, $pagination, $url, $sce, $alert,$modal) {
+	angular.module('demoModule', ['niceComponent', 'app'])
+		.controller('demoCtrl', ['$scope', '$http', '$pagination', '$url', '$sce', '$alert','$modal', function($scope, $http, $pagination, $url, $sce, $alert,$modal) {
 
 			//键值对详情界面
-			var kvDetailModal = $modal({scope: $scope,animation:'am-fade-and-slide-top',templateUrl: 'component/kv_add_or_edit.tpl.html',show: false});
+			var kvDetailModal = $modal({scope: $scope,animation:'am-fade-and-slide-top',templateUrl: 'component/demo.tpl.html',show: false});
 			 
 
 			$scope.tenant = "";

@@ -12,10 +12,5 @@
 			</map>
 
 		</property>
-		<property name="permissions">
-			<map>
-				<!-- <entry key="asf-1.0.0.0" value="test|OR"/> -->
-			</map>
-		</property>
 	</bean>
 </beans>

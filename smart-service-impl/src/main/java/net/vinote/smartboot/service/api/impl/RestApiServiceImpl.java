@@ -1,8 +1,6 @@
 package net.vinote.smartboot.service.api.impl;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,12 +14,12 @@ import net.vinote.smartboot.service.api.RestApiHandler;
 import net.vinote.smartboot.service.api.RestApiResult;
 import net.vinote.smartboot.service.api.RestApiService;
 import net.vinote.smartboot.service.api.VersionEnum;
+import net.vinote.smartboot.service.api.permission.HandlerPerimissionAnnotation;
+import net.vinote.smartboot.service.api.permission.Permission;
+import net.vinote.smartboot.service.api.permission.PermissionUtil;
 import net.vinote.smartboot.service.util.AbstractService;
 import net.vinote.smartboot.service.util.AssertUtils;
 import net.vinote.smartboot.service.util.ServiceCallback;
-import net.vinote.smartboot.service.util.permission.Permission;
-import net.vinote.smartboot.service.util.permission.PermissionName;
-import net.vinote.smartboot.service.util.permission.PermissionRelation;
 import net.vinote.sosa.core.json.JsonUtil;
 
 /**
@@ -32,11 +30,9 @@ import net.vinote.sosa.core.json.JsonUtil;
  */
 public class RestApiServiceImpl extends AbstractService implements RestApiService {
 	private static final Logger LOGGER = LogManager.getLogger(RestApiServiceImpl.class);
+
 	/** API服务集合 */
 	private Map<String, RestApiHandler> handlers;
-
-	/** 各服务的权限集合 */
-	private Map<String, Permission> permissions;
 
 	/*
 	 * (non-Javadoc)
@@ -74,16 +70,24 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 				AssertUtils.isNotNull(handler, "无法处理该服务");
 
 				// 校验本次服务是否具备权限
-				// if (!CollectionUtils.isEmpty(permissions)) {
-				// // TODO 读取当前用户的权限集合
-				// UserComponent userComp =
-				// serviceContext.getService(ServiceEnum.USER_SERVICE);
-				// String[] userPerms =
-				// userComp.queryUserPermissions(authBean.getUserId());
-				// AssertUtils.isTrue(PermissionUtil.hasPermission(userPerms,
-				// permissions.get(generateServerKey(authBean.getSrvname(),
-				// version))), "无权进行本次操作");
-				// }
+				HandlerPerimissionAnnotation annotation = handler.getClass()
+					.getAnnotation(HandlerPerimissionAnnotation.class);
+				if (annotation == null || ArrayUtils.isEmpty(annotation.value())) {
+					LOGGER.warn(handler + "未指定权限,操作存在隐患!");
+					return;
+				}
+				Permission[] permission = annotation.value();
+
+				for (Permission p : permission) {
+					if (!StringUtils.equals(authBean.getActName(), p.act())) {
+						continue;
+					}
+					//TODO 以下校验逻辑可根据实际业务作调整
+					String[] perms = (String[]) authBean.getContext(ApiAuthBean.ContextKey.PERMISSION_LIST);
+					AssertUtils.isTrue(ArrayUtils.isNotEmpty(perms), "用户权限为空");
+					AssertUtils.isTrue(PermissionUtil.hasPermission(perms, p), "无操作权限!");
+					break;
+				}
 			}
 
 			@Override
@@ -150,64 +154,6 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 	 */
 	public void setHandlers(Map<String, RestApiHandler> handlers) {
 		this.handlers = handlers;
-	}
-
-	/**
-	 * Setter method for property <tt>permissions</tt>. key:对应handlers的key
-	 * value格式为: 权限码1,权限码2|权限关系
-	 * 
-	 * @param permissions
-	 *            value to be assigned to property permissions
-	 */
-	public void setPermissions(Map<String, String> permissions) {
-		if (CollectionUtils.isEmpty(permissions)) {
-			return;
-		}
-		this.permissions = new HashMap<String, Permission>(permissions.size());
-		for (Entry<String, String> entry : permissions.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
-			Permission permission = generatePermission(value);
-			if (permission == null) {
-				continue;
-			}
-			this.permissions.put(key, permission);
-		}
-	}
-
-	/**
-	 * 解析权限配置: <br/>
-	 * code1,code2|OR<br/>
-	 * code1,code2|AND<br/>
-	 * code1,code2|NOT
-	 * 
-	 * @param config
-	 * @return
-	 */
-	private Permission generatePermission(String config) {
-		String[] strs = StringUtils.split(config, '|');
-		if (ArrayUtils.isEmpty(strs)) {
-			return null;
-		}
-		String[] perNames = StringUtils.split(strs[0], ',');
-		if (ArrayUtils.isEmpty(perNames)) {
-			return null;
-		}
-		PermissionName[] permNames = new PermissionName[perNames.length];
-		for (int i = 0; i < permNames.length; i++) {
-			permNames[i] = new PermissionName(perNames[i], null);
-		}
-		PermissionRelation relation = null;
-		if (strs.length > 1) {
-			relation = PermissionRelation.getRelation(strs[1]);
-		}
-		if (relation == null) {
-			relation = PermissionRelation.OR;
-		}
-		Permission permission = new Permission();
-		permission.setRelation(relation);
-		permission.setPermissions(permNames);
-		return permission;
 	}
 
 }

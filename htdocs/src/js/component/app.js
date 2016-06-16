@@ -67,20 +67,6 @@
 				wx_info_submit: domain.stableDomain + 'raiderSubmit.json',
 			};
 
-			var remote_dev = {
-				tenant_list: domain.remoateDevDomain + 'tenant/list', //租户列表查询
-				tenant_add: domain.remoateDevDomain + 'tenant/add', //添加租户信息
-				tenant_del: domain.remoateDevDomain + 'tenant/del', //删除租户信息
-				tenant_get: domain.remoateDevDomain + 'tenant/get', //获取租户信息
-				tenant_update: domain.remoateDevDomain + 'tenant/update', //更新租户信息
-				kv_list: domain.remoateDevDomain + 'kv/list', //键值列表查询
-				kv_add: domain.remoateDevDomain + 'kv/add', //添加键值信息
-				kv_del: domain.remoateDevDomain + 'kv/del', //删除键值信息
-				kv_get: domain.remoateDevDomain + 'kv/get', //获取键值信息
-				kv_update: domain.remoateDevDomain + 'kv/update', //更新键值信息
-				wx_info_submit: domain.remoateDevDomain + 'raiderSubmit.json',
-			};
-
 			//开发环境URL配置
 			var local_dev = {
 				tenant_list: domain.localDevDomain + 'raiderList.json', //租户信息列表
