@@ -12,6 +12,13 @@ public class Pagination<T> extends ToString {
 
 	private List<T> data;
 
+	public Pagination(long total, int page, int pageSize) {
+		super();
+		this.total = total;
+		this.page = page;
+		this.pageSize = pageSize;
+	}
+
 	/**
 	 * Getter method for property <tt>total</tt>.
 	 *

@@ -1,4 +1,4 @@
-package net.vinote.smartboot.dal.middlegen.query;
+package net.vinote.smartboot.dal.customize.query;
 
 public class Page {
 	/** 当前页码 */

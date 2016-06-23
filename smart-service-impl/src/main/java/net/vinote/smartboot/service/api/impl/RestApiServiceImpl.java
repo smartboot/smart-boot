@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.CollectionUtils;
 
+import com.alibaba.fastjson.JSONArray;
+
 import net.vinote.smartboot.service.api.ApiAuthBean;
 import net.vinote.smartboot.service.api.ApiCodeEnum;
 import net.vinote.smartboot.service.api.RestApiHandler;
@@ -82,7 +84,7 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 					if (!StringUtils.equals(authBean.getActName(), p.act())) {
 						continue;
 					}
-					//TODO 以下校验逻辑可根据实际业务作调整
+					// TODO 以下校验逻辑可根据实际业务作调整
 					String[] perms = (String[]) authBean.getContext(ApiAuthBean.ContextKey.PERMISSION_LIST);
 					AssertUtils.isTrue(ArrayUtils.isNotEmpty(perms), "用户权限为空");
 					AssertUtils.isTrue(PermissionUtil.hasPermission(perms, p), "无操作权限!");
@@ -102,7 +104,11 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 							if (LOGGER.isDebugEnabled()) {
 								LOGGER.debug(execResult);
 							}
-							result.setData(JsonUtil.getJsonObject(execResult));
+							if (execResult instanceof JSONArray) {
+								result.setData(execResult);
+							} else {
+								result.setData(JsonUtil.getJsonObject(execResult));
+							}
 						}
 					});
 					AssertUtils.isTrue(result.isSuccess(), result.getMessage());
@@ -111,7 +117,11 @@ public class RestApiServiceImpl extends AbstractService implements RestApiServic
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug(execResult);
 					}
-					result.setData(JsonUtil.getJsonObject(execResult));
+					if (execResult instanceof JSONArray) {
+						result.setData(execResult);
+					} else {
+						result.setData(JsonUtil.getJsonObject(execResult));
+					}
 				}
 
 			}
