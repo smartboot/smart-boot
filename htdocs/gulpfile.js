@@ -6,14 +6,15 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
-    clean = require('gulp-clean'),
+    // clean = require('gulp-clean'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
     htmlInjector = require("bs-html-injector"),
-    proxyMiddleware = require('http-proxy-middleware');
+    proxyMiddleware = require('http-proxy-middleware'),
+    del = require('del');
 
 
 
@@ -40,7 +41,11 @@ gulp.task('html',function() {
     .pipe(gulp.dest('build/'))
 });
 
-
+// 发布字体
+gulp.task('fonts',function() {
+  gulp.src('src/fonts/*')
+    .pipe(gulp.dest('build/fonts'))
+});
 // 脚本
 gulp.task('scripts',function() {
   gulp.src('src/js/**/*.js')
@@ -63,7 +68,7 @@ gulp.task('images', function() {
 });
 
 //browser-sync
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync',['clean'], function() {
     browserSync.use(htmlInjector, {
         files: "*/*.html"
     });
@@ -97,13 +102,14 @@ gulp.task('browser-sync', function() {
 
 // 清理
 gulp.task('clean', function() {  
-  return gulp.src('build/*', {read: false})
-  .pipe(clean({force: true}));
+  // return gulp.src('build/**/*', {read: false})
+  // .pipe(clean({force: true}));
+  return del(['build/**/*']);
 });
 
 // 预设任务
-gulp.task('default', function() {  
-    gulp.start('clean','html','style', 'images','scripts');
+gulp.task('default',['clean'], function() {  
+    gulp.start('html','style','fonts', 'images','scripts');
 });
 
 // 看手
@@ -117,6 +123,8 @@ gulp.task('watch', function() {
 
   // 看守所有图片档
   gulp.watch('src/js/**/*.js', ['scripts']);
+
+  gulp.watch('src/fonts/*',['fonts']);
 
   gulp.watch('template/**/*.html', ['html']);
 
