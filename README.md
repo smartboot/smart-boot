@@ -1,5 +1,7 @@
 #smart-boot
 
+[![Join the chat at https://gitter.im/smart-boot/Lobby](https://badges.gitter.im/smart-boot/Lobby.svg)](https://gitter.im/smart-boot/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ##工程结构
 
 - smart-assembly   
